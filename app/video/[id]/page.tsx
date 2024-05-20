@@ -78,15 +78,11 @@ export default async function Page({ params: { id } }: { params: { id: string } 
 <>
         <div className="mt-6 gap-6 flex flex-col w-full">
           {/* Card Section Top */}
-          <Suspense fallback={<p>Loading ...</p>}>
           <Card className="border-none bg-background/60 dark:bg-default-100/50 max-w-auto" shadow="sm">
-          <VideoPlayer video={video} />
+          <VideoPlayer title={video.title} src={video.m3u8}/>
           </Card>
-          </Suspense>
-
         </div>
         <h2 className="text-xl font-semibold">視頻信息</h2>
-        <Suspense fallback={<p>Loading ...</p>}>
      <Card className="bg-default-50 rounded-xl shadow-md">
      <CardHeader className="flex flex-col gap-3">
   <div className="flex items-center justify-between">
@@ -119,13 +115,10 @@ export default async function Page({ params: { id } }: { params: { id: string } 
     </div>
 
      </Card>
-     </Suspense>
         <h2 className="text-xl font-semibold">智能推荐</h2>
         <div className="grid md:grid-cols-2 grid-cols-1 2xl:grid-cols-5 gap-5 w-full">
           {video.likes.map((video: Video) => (
-            <Suspense key={video._id} fallback={<p>Loading...</p>}>
             <CardBalance key={video._id} video={video} />
-            </Suspense>
           ))}
         </div>
         </>

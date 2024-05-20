@@ -14,13 +14,11 @@ import { PlyrLayout, plyrLayoutIcons } from '@vidstack/react/player/layouts/plyr
 import HLS from 'hls.js';
 
 type VideoPlayerProps = {
-  video: {
-    originalname: string;
-    moviepath: string;
-  };
+  title: string;
+  src: string;
 };
 
-export default function VideoPlayer({ video }: VideoPlayerProps) {
+export default function VideoPlayer({ title,src}: VideoPlayerProps) {
 
 
     function onProviderChange(
@@ -37,8 +35,8 @@ export default function VideoPlayer({ video }: VideoPlayerProps) {
 
   return (
     <MediaPlayer
-      title={video.originalname}
-      src={video.moviepath}
+      title={title}
+      src={src}
       onProviderChange={onProviderChange}
       playsInline
       aspectRatio="16/9"
