@@ -2,7 +2,7 @@
 
 import { getVideo, gettv, getm3u8,getContentCounts,getContents } from '@/config/api';
 import { CardBalance } from '@/components/home/card-balance';
-import VideoPlayer from '@/components/VideoPlayer';
+import VideoPlayer from '@/components/VideosPlayer';
 import { Video } from '@/types';
 import { Metadata } from 'next';
 

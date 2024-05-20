@@ -2,7 +2,7 @@
 
 import { getVideo, getContentCounts, getContents } from '@/config/api';
 import { CardBalance } from '@/components/home/card-balance';
-import MediaPlayer from '@/components/VideoPlayer';
+import VideoPlayer from '@/components/VideoPlayer';
 import { Video } from '@/types';
 import { Card, CardBody, CardHeader, Chip } from '@nextui-org/react';
 import { FcMultipleCameras } from "react-icons/fc";
@@ -80,7 +80,7 @@ export default async function Page({ params: { id } }: { params: { id: string } 
           {/* Card Section Top */}
           <Suspense fallback={<p>Loading ...</p>}>
           <Card className="border-none bg-background/60 dark:bg-default-100/50 max-w-auto" shadow="sm">
-          <MediaPlayer video={video} />
+          <VideoPlayer video={video} />
           </Card>
           </Suspense>
 
