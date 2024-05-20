@@ -2,10 +2,7 @@
 
 import { getVideo, getContentCounts, getContents } from '@/config/api';
 import { CardBalance } from '@/components/home/card-balance';
-import '@vidstack/react/player/styles/base.css';
-import '@vidstack/react/player/styles/plyr/theme.css';
-import { MediaPlayer,Poster, MediaProvider } from '@vidstack/react';
-import { PlyrLayout, plyrLayoutIcons } from '@vidstack/react/player/layouts/plyr';
+import MediaPlayer from '@/components/VideoPlayer';
 import { Video } from '@/types';
 import { Card, CardBody, CardHeader, Chip } from '@nextui-org/react';
 import { FcMultipleCameras } from "react-icons/fc";
@@ -83,11 +80,7 @@ export default async function Page({ params: { id } }: { params: { id: string } 
           {/* Card Section Top */}
           <Suspense fallback={<p>Loading ...</p>}>
           <Card className="border-none bg-background/60 dark:bg-default-100/50 max-w-auto" shadow="sm">
-          <MediaPlayer title={video.title} src={video.m3u8} playsInline>
-           <PlyrLayout icons={plyrLayoutIcons} />
-          <MediaProvider />
-          </MediaPlayer>
-          
+          <MediaPlayer video={video} />
           </Card>
           </Suspense>
 
