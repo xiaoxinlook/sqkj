@@ -15,8 +15,8 @@ import HLS from 'hls.js';
 
 type VideoPlayerProps = {
   video: {
-    originalname: string;
-    moviepath: string;
+    title: string;
+    m3u8: string;
   };
 };
 
