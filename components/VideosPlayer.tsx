@@ -1,8 +1,8 @@
 "use client";
-import '@vidstack/react/player/styles/base.css';
-import '@vidstack/react/player/styles/plyr/theme.css';
+import '@vidstack/react/player/styles/default/theme.css';
+import '@vidstack/react/player/styles/default/layouts/video.css';
 import { MediaPlayer, MediaProvider } from '@vidstack/react';
-import { PlyrLayout, plyrLayoutIcons } from '@vidstack/react/player/layouts/plyr';
+import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
 import { Button, Card, CardFooter, Divider } from '@nextui-org/react';
 import { useState } from 'react';
 
@@ -24,8 +24,8 @@ const VideoPlayer = ({ episodes }: VideoPlayerProps) => {
 
   return (
     <Card className="border-none bg-background/60 dark:bg-default-100/50 max-w-auto" shadow="sm">
-      <MediaPlayer src={videoUrl}   playsInline={true} autoPlay={true}>
-        <PlyrLayout icons={plyrLayoutIcons} />
+      <MediaPlayer src={videoUrl}   playsInline aspectRatio="16/9">
+      <DefaultVideoLayout icons={defaultLayoutIcons} />
         <MediaProvider />
       </MediaPlayer>
       <Divider />

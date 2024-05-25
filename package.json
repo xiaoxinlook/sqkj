@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@next/third-parties": "^14.2.3",
     "@nextui-org/react": "2.0.22",
     "@vidstack/react": "^1.11.21",
     "apexcharts": "^3.35.5",

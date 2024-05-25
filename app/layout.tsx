@@ -5,6 +5,7 @@ import { fontSans } from '@/config/fonts';
 import clsx from "clsx";
 import Script from "next/script";
 import Metrika from "next-metrika";
+import {GoogleAnalytics} from '@next/third-parties/google'
 
 export const metadata = {
   title: {
@@ -86,9 +87,10 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en">
+    <html lang="zh-CN">
       <body className={clsx("font-sans antialiased", fontSans.className)}>
       <Metrika id={97197255} />
+      <GoogleAnalytics gaId="G-Y65H54Y45D" />
         <Providers>
         <main className="h-full lg:px-6">
         <div className="flex flex-col justify-center w-full py-5 px-4 lg:px-0 max-w-[90rem] mx-auto gap-3">

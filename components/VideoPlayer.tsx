@@ -11,14 +11,16 @@ import {
 } from '@vidstack/react';
 import { Gesture } from '@vidstack/react';
 import { defaultLayoutIcons, DefaultVideoLayout } from '@vidstack/react/player/layouts/default';
+import { Poster } from '@vidstack/react';
 import HLS from 'hls.js';
 
-type VideoPlayerProps = {
+interface VideoPlayerProps {
+  videoUrl: string;
   title: string;
-  src: string;
-};
+  posterUrl: string;
+}
 
-export default function VideoPlayer({ title,src}: VideoPlayerProps) {
+export default function VideoPlayer({ title,videoUrl,posterUrl}: VideoPlayerProps) {
 
 
     function onProviderChange(
@@ -36,12 +38,18 @@ export default function VideoPlayer({ title,src}: VideoPlayerProps) {
   return (
     <MediaPlayer
       title={title}
-      src={src}
+      src={videoUrl}
       onProviderChange={onProviderChange}
       playsInline
       aspectRatio="16/9"
     >
-      <MediaProvider />
+       <MediaProvider>
+              <Poster
+                className="vds-poster"
+                src={posterUrl}
+                alt="视频海报"
+              />
+            </MediaProvider>
       <Gesture className="vds-gesture" event="pointerup" action="toggle:paused" />
       <Gesture className="vds-gesture" event="pointerup" action="toggle:controls" />
       <Gesture className="vds-gesture" event="dblpointerup" action="seek:-10" />

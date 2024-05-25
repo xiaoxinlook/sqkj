@@ -11,7 +11,7 @@ import Image from 'next/image';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Key } from 'react';
 import { Metadata } from 'next';
-import { Suspense } from 'react'
+
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const { id } = params;
@@ -79,7 +79,7 @@ export default async function Page({ params: { id } }: { params: { id: string } 
         <div className="mt-6 gap-6 flex flex-col w-full">
           {/* Card Section Top */}
           <Card className="border-none bg-background/60 dark:bg-default-100/50 max-w-auto" shadow="sm">
-          <VideoPlayer title={video.title} src={video.m3u8}/>
+          <VideoPlayer title={video.title} videoUrl={video.m3u8} posterUrl={posterUrl}/>
           </Card>
         </div>
         <h2 className="text-xl font-semibold">視頻信息</h2>
