@@ -53,27 +53,6 @@ export async function generateMetadata({ params }: { params: { id: string } }): 
     },
   };
 }
-
-export async function generateStaticParams() {
-  const categories = ['国产嫩妹', '国产自拍', '国产探花', '国产黑料','国产偷拍', '国产直播'];
-  const paths = [];
-
-  for (const category of categories) {
-    const contentCounts = await getContentCounts({ type: 'tv', category });
-    const count = contentCounts[category];
-
-    if (count > 0) {
-      const contents = await getContents({ category, page: 1, size: count });
-      const categoryPaths = contents.map((content: { _id: any; }) => ({
-        category,
-        id: content._id,
-      }));
-      paths.push(...categoryPaths);
-    }
-  }
-
-  return paths;
-}
 export default async function Page({
   params,
 }: {

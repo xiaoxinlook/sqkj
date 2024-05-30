@@ -4,8 +4,6 @@ import { CardBalance } from '@/components/home/card-balance';
 import { Pagination } from '@/components/Pagination';
 import { Video } from '@/types';
 import { Metadata } from 'next';
-import { createHash } from 'crypto';
-
 
 export async function generateMetadata({ params }: { params: { category: string[] } }): Promise<Metadata> {
   const slug = decodeURIComponent(params.category[0]);
