@@ -48,7 +48,7 @@ export const metadata = {
       '色情空间是一个提供海量高清视频在线观看的平台,包括国产自拍、国产黑料、国产探花、国产嫩妹等多个分类,满足您的观影需求。',
     type: 'website',
     url: 'https://SQKJ.RU',
-    siteName: '我的视频网站',
+    siteName: '色情空间',
     images: [
       {
         url: '/og-image.jpg',
@@ -58,19 +58,6 @@ export const metadata = {
     ],
     locale: 'zh_CN',
   },
-  
-  robots: {
-    index: true,
-    follow: true,
-    nocache: true,
-  },
-  
-  icons: {
-    icon: '/favicon.ico',
-    shortcut: '/favicon64.png',
-    apple: '/apple-touch-icon.png',
-  },
-  
   twitter: {
     card: 'summary_large_image',
     site: '@myvideowebsite',

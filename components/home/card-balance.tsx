@@ -10,9 +10,7 @@ type VideoCardProps = {
 
 export const CardBalance: React.FC<VideoCardProps> = ({ video }) => {
   const IMG_HOST = process.env.NEXT_PUBLIC_IMG_HOST;
-  const PREVIEW_HOST = process.env.NEXT_PUBLIC_PREVIEW_HOST
   const posterUrl = `${IMG_HOST}${video.poster2 ? video.poster2.url : video.poster}`;
-  const previewvideo = `${PREVIEW_HOST}${video.previewvideo}`;
 
   const posterwidth = video.poster2 && video.poster2.width ? video.poster2.width : 850;
   const posterheight = video.poster2 && video.poster2.height ? video.poster2.height : 500;

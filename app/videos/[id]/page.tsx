@@ -5,6 +5,18 @@ import { CardBalance } from '@/components/home/card-balance';
 import VideoPlayer from '@/components/VideosPlayer';
 import { Video } from '@/types';
 import { Metadata } from 'next';
+import { createHash } from 'crypto';
+
+// 生成防盗链URL的函数
+function generateAntiTheftUrl(url: string, tokenKey: string) {
+  const nowstamp = Date.now(); // 获取当前时间的毫秒数
+  const dutestamp = nowstamp + 1200 * 1000; // 60秒后过期
+  const playCount = 3; // 允许播放3次
+  const tokenUrl = `${url}&counts=${playCount}&timestamp=${dutestamp}${tokenKey}`;
+  const md5 = createHash('md5');
+  const md5Token = md5.update(tokenUrl).digest('hex');
+  return `${url}?counts=${playCount}&timestamp=${dutestamp}&key=${md5Token}`;
+}
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const { id } = params;
@@ -81,17 +93,21 @@ export default async function Page({
   // 使用 getVideo 函数查询 firstEpisodeMovieId 对应的视频信息
   const firstEpisodeVideo = await getVideo({ id: firstEpisodeMovieId });
 
-  // 提取 episodes 数组中的 episode 和 movieid
-  episodes = await Promise.all(
-    tvData.tv.episodes.map(async (episode: any) => {
-      const { m3u8 } = await getm3u8({ id: episode.movieid });
-      const VIDEO_HOST = process.env.VIDEO_HOST || 'https://v2.shizizuodh.com';
-      return {
-        episode: episode.episode,
-        m3u8: `${VIDEO_HOST}${m3u8}`,
-      };
-    })
-  );
+ // 生成防盗链的 token key
+ const tokenKey = process.env.TOKEN_KEY || '1q1a1z2q2a2z3q3a3z';
+
+ // 提取 episodes 数组中的 episode 和 movieid,并生成防盗链的 m3u8 URL
+ episodes = await Promise.all(
+   tvData.tv.episodes.map(async (episode: any) => {
+     const { m3u8 } = await getm3u8({ id: episode.movieid });
+     const antiTheftM3u8 = generateAntiTheftUrl(m3u8, tokenKey);
+     const VIDEO_HOST = process.env.VIDEO_HOST;
+     return {
+       episode: episode.episode,
+       m3u8: `${VIDEO_HOST}${antiTheftM3u8}`,
+     };
+   })
+ );
 
   // 将第一集视频的详细信息赋值给 video 对象
   video = firstEpisodeVideo;

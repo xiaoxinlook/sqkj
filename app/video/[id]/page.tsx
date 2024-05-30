@@ -11,7 +11,18 @@ import Image from 'next/image';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 import { Key } from 'react';
 import { Metadata } from 'next';
+import { createHash } from 'crypto';
 
+// 生成防盗链URL的函数
+function generateAntiTheftUrl(url: string, tokenKey: string) {
+  const nowstamp = Date.now(); // 获取当前时间的毫秒数
+  const dutestamp = nowstamp + 20 * 1000; // 60秒后过期
+  const playCount = 3; // 允许播放3次
+  const tokenUrl = `${url}&counts=${playCount}&timestamp=${dutestamp}${tokenKey}`;
+  const md5 = createHash('md5');
+  const md5Token = md5.update(tokenUrl).digest('hex');
+  return `${url}?counts=${playCount}&timestamp=${dutestamp}&key=${md5Token}`;
+}
 
 export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
   const { id } = params;
@@ -71,15 +82,21 @@ export async function generateStaticParams() {
 }
 export default async function Page({ params: { id } }: { params: { id: string } }) {
   const video = await getVideo({ id });
-  const IMG_HOST = process.env.NEXT_PUBLIC_IMG_HOST;
-  const posterUrl = `${IMG_HOST}${video.poster2.url}`;
+    // 生成防盗链URL和视频海报链接
+    const tokenKey = process.env.TOKEN_KEY || '1q1a1z2q2a2z3q3a3z';
+    const videoHost = process.env.NEXT_PUBLIC_VIDEO_HOST || '';
+    const imgHost = process.env.NEXT_PUBLIC_IMG_HOST || '';
+  
+    const antiTheftPath = generateAntiTheftUrl(`${video.m3u8}`, tokenKey);
+    const videoURL = `${videoHost}${antiTheftPath}`;
+    const posterUrl = `${imgHost}${video.poster2.url}`;
 
   return (
 <>
         <div className="mt-6 gap-6 flex flex-col w-full">
           {/* Card Section Top */}
           <Card className="border-none bg-background/60 dark:bg-default-100/50 max-w-auto" shadow="sm">
-          <VideoPlayer title={video.title} videoUrl={video.m3u8} posterUrl={posterUrl}/>
+          <VideoPlayer title={video.title} videoUrl={videoURL} posterUrl={posterUrl}/>
           </Card>
         </div>
         <h2 className="text-xl font-semibold">視頻信息</h2>

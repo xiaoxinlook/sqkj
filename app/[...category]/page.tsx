@@ -4,6 +4,7 @@ import { CardBalance } from '@/components/home/card-balance';
 import { Pagination } from '@/components/Pagination';
 import { Video } from '@/types';
 import { Metadata } from 'next';
+import { createHash } from 'crypto';
 
 
 export async function generateMetadata({ params }: { params: { category: string[] } }): Promise<Metadata> {
@@ -25,25 +26,6 @@ export async function generateMetadata({ params }: { params: { category: string[
   };
 }
 
-export async function generateStaticParams() {
-   // 定义一个名为 `medias` 的数组,包含一个字符串元素 "寸止合集"
-   const medias = ['国产嫩妹', '国产自拍', '国产探花', '国产黑料','国产偷拍', '国产直播'];
- 
-   // 定义一个空数组 `params`,用于存储生成的静态路由参数
-   const params = [];
- 
-   // 使用 `for...of` 循环遍历 `medias` 数组中的每个元素
-   for (const media of medias) {
-     // 对于每个 `media`,将其进行 URL 编码,并将编码后的结果作为数组 `[encodeURIComponent(media)]` 推入 `params` 数组
-     params.push({ slug: [encodeURIComponent(media)] });
- 
-     // 对于每个 `media`,将其进行 URL 编码,并将编码后的结果与字符串 '1' 组成数组 `[encodeURIComponent(media), '1']`,然后推入 `params` 数组
-     params.push({ slug: [encodeURIComponent(media), '1'] });
-   }
- 
-   // 函数返回生成的静态路由参数数组 `params`
-   return params;
- }
  export default async function CategoryPage({ params }: { params: { category: string[] } }) {
    const category = decodeURIComponent(params.category[0]);
    const size = 20;
@@ -55,9 +37,7 @@ export async function generateStaticParams() {
    ]);
 
    const counts = countsResult.counts;
-  console.log('视频数量:', counts);
   const totalPages = Math.ceil(counts / size);
-  console.log('视频分页:', totalPages);
 
    return (
       
