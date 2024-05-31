@@ -1,31 +1,16 @@
-stages:
-  - build
-  - deploy
-
-build:
-  stage: build
-  image: node:latest
-  script:
-    - npm ci
-    - npm run build
-  artifacts:
-    paths:
-      - .next
-      - public
-  only:
-    - main
-
 deploy:
   stage: deploy
+  tags:
+    - sqkj
   script:
     - cd /home/sqkj
     - pm2 stop sqkj
     - rm -rf .next public
-    - cp -r ../.next ./ 
-    - cp -r ../public ./ 
+    - cp -r ../.next ./
+    - cp -r ../public ./
     - npm install
     - pm2 start sqkj
-  environment: 
+  environment:
     name: production
     url: http://sqkj.ru
   only:
