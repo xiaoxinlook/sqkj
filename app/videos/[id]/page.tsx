@@ -1,7 +1,7 @@
 // app/page.tsx
 
 import { getVideo, gettv, getm3u8,getContentCounts,getContents } from '@/config/api';
-import { CardBalance } from '@/components/home/card-balance';
+import { VideoCard } from '@/components/VideoCard';
 import VideoPlayer from '@/components/VideosPlayer';
 import { Video } from '@/types';
 import { Metadata } from 'next';
@@ -102,7 +102,7 @@ export default async function Page({
         <h3 className="text-xl font-semibold">智能推荐</h3>
         <div className="grid md:grid-cols-2 grid-cols-1 2xl:grid-cols-5 gap-5 w-full">
           {video.likes.map((video: Video) => (
-            <CardBalance key={video._id} video={video} />
+            <VideoCard key={video._id} video={video} />
           ))}
         </div>
 </>

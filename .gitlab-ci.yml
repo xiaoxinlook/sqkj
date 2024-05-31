@@ -2,30 +2,35 @@ stages:
   - build
   - deploy
 
-cache:
-  key: ${CI_COMMIT_REF_SLUG}
-  paths:
-    - node_modules/
-
 build:
   stage: build
+  image: node:latest
   script:
     - npm ci
     - npm run build
   artifacts:
     paths:
-      - .next/
-      - public/
+      - .next
+      - public
+  only:
+    - main
+  tags:
+    - your-runner-tag
 
 deploy:
   stage: deploy
   script:
-    - mkdir -p ~/.ssh
-    - ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
-    - echo "${SECURE_FILE_ID_RSA_PEM}" > ~/.ssh/id_rsa
-    - chmod 600 ~/.ssh/id_rsa
-    - rsync -avz --delete .next/ $SSH_USER@$SSH_HOST:/home/sqkj/.next/
-    - rsync -avz --delete public/ $SSH_USER@$SSH_HOST:/home/sqkj/public/
-    - ssh -i ~/.ssh/id_rsa $SSH_USER@$SSH_HOST "cd /home/sqkj && npm install --production && pm2 restart sqkj"
+    - cd /home/sqkj
+    - pm2 stop sqkj
+    - rm -rf .next public
+    - cp -r ../.next ./ 
+    - cp -r ../public ./ 
+    - npm install
+    - pm2 start sqkj
+  environment: 
+    name: production
+    url: http://sqkj.ru
   only:
     - main
+  tags:
+    - your-runner-tag
