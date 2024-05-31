@@ -1,0 +1,33 @@
+stages:
+  - build
+  - deploy
+
+build:
+  stage: build
+  script:
+    - npm ci
+    - npm run build
+  artifacts:
+    paths:
+      - .next/
+      - public/
+
+deploy:
+  stage: deploy
+  script:
+    - mkdir -p ~/.ssh
+    - ssh-keyscan -H $SSH_HOST >> ~/.ssh/known_hosts
+    - |
+      echo "${SECURE_FILE_ID_RSA_PEM}" > ~/.ssh/id_rsa
+      chmod 600 ~/.ssh/id_rsa
+    - rsync -avz --delete .next/ $SSH_USER@$SSH_HOST:/home/sqkj/.next/
+    - rsync -avz --delete public/ $SSH_USER@$SSH_HOST:/home/sqkj/public/
+    - |
+      ssh -i ~/.ssh/id_rsa $SSH_USER@$SSH_HOST "
+        cd /home/sqkj
+        npm install --production
+        pm2 delete sqkj || true
+        pm2 start npm --name sqkj -- start
+      "
+  only:
+    - main

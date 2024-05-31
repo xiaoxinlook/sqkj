@@ -15,7 +15,6 @@ const nextConfig = {
     minimumCacheTTL: 6000,
     contentDispositionType: 'inline',
   },
-  reactStrictMode: true,
 }
 
 module.exports = nextConfig
