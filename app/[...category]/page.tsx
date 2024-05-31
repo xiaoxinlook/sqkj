@@ -1,6 +1,6 @@
 import React from 'react';
 import { getContentCounts, getContents } from '@/config/api';
-import { CardBalance } from '@/components/home/card-balance';
+import { VideoCard } from '@/components/VideoCard';
 import { Pagination } from '@/components/Pagination';
 import { Video } from '@/types';
 import { Metadata } from 'next';
@@ -46,7 +46,7 @@ export async function generateMetadata({ params }: { params: { category: string[
                 <h3 className="text-xl font-semibold">{category}</h3>
                 <div className="grid md:grid-cols-2 grid-cols-1 2xl:grid-cols-5 gap-5 w-full">
                 {videos.map((video: Video) => (
-                    <CardBalance key={video._id} video={video} />
+                    <VideoCard key={video._id} video={video} />
                   ))}
                 </div>
           </div>

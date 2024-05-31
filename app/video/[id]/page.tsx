@@ -1,7 +1,7 @@
 // app\v\[...id]
 
 import { getVideo, getContentCounts, getContents } from '@/config/api';
-import { CardBalance } from '@/components/home/card-balance';
+import { VideoCard } from '@/components/VideoCard';
 import VideoPlayer from '@/components/VideoPlayer';
 import { Video } from '@/types';
 import { Card, CardBody, CardHeader, Chip } from '@nextui-org/react';
@@ -107,7 +107,7 @@ export default async function Page({ params: { id } }: { params: { id: string } 
 </CardHeader>
     <div className="flex flex-row overflow-x-auto touch-pan-x scroll-smooth">
     {video.photos.slice(1).map((photo: string | StaticImport, index: Key | null | undefined) => (
-        <Image key={index} loading = 'lazy' unoptimized={true} src={photo} width={200} height={300} alt={`Photo ${index}`} className="object-cover" />
+        <Image key={index} loading = 'lazy'  src={photo} width={200} height={300} alt={`Photo ${index}`} className="object-cover" />
       ))}
     </div>
 
@@ -115,7 +115,7 @@ export default async function Page({ params: { id } }: { params: { id: string } 
         <h2 className="text-xl font-semibold">智能推荐</h2>
         <div className="grid md:grid-cols-2 grid-cols-1 2xl:grid-cols-5 gap-5 w-full">
           {video.likes.map((video: Video) => (
-            <CardBalance key={video._id} video={video} />
+            <VideoCard key={video._id} video={video} />
           ))}
         </div>
         </>

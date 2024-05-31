@@ -1,4 +1,4 @@
-import { CardBalance } from '@/components/home/card-balance';
+import { VideoCard } from '@/components/VideoCard';
 import { searchContents } from '@/config/api';
 import { Video } from '@/types';
 import { Metadata } from 'next';
@@ -48,7 +48,7 @@ async function SearchResultPage({
                 <h3 className="text-xl font-semibold">搜索结果:{query}</h3>
                 <div className="grid md:grid-cols-2 grid-cols-1 2xl:grid-cols-5 gap-5 w-full">
                 {filteredPosts.map((video: Video) => (
-                    <CardBalance key={video._id} video={video} />
+                    <VideoCard key={video._id} video={video} />
                   ))}
                 </div>
           </div>

@@ -1,6 +1,6 @@
 // components/home/content.jsx
 import React from 'react'
-import { CardBalance } from './card-balance'
+import { VideoCard } from '@/components/VideoCard'
 import { getContents } from '@/config/api'
 
 const categories = [
@@ -33,7 +33,7 @@ const Content = async () => {
             <h3 className="text-xl font-semibold">分类名称</h3>
             <div className="grid md:grid-cols-2 grid-cols-1 2xl:grid-cols-3 gap-5 w-full">
               {contentData.map((video, index) => (
-                <CardBalance key={index} video={video} />
+                <VideoCard key={index} video={video} />
               ))}
             </div>
           </div>

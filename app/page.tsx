@@ -1,6 +1,6 @@
 // app/page.tsx
 import { getContents } from '@/config/api';
-import { CardBalance } from '@/components/home/card-balance';
+import { VideoCard } from '@/components/VideoCard';
 import type { Video } from '@/types/index';
 
 type VideoData = {
@@ -41,7 +41,7 @@ export default async function Page(): Promise<JSX.Element> {
                 <h2 className="text-xl font-semibold mb-2">{content.category}</h2>
                 <div className="grid md:grid-cols-2 grid-cols-1 lg:grid-cols-4 2xl:grid-cols-5 gap-5 w-full">
                   {content.data?.map((video, videoIndex) => (
-                    <CardBalance key={videoIndex} video={video} />
+                    <VideoCard key={videoIndex} video={video} />
                   ))}
                 </div>
               </div>
