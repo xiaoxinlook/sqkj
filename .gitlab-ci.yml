@@ -1,3 +1,5 @@
+# 不需要指定 image,因为不使用 Docker 容器
+
 stages:
   - build
   - deploy
