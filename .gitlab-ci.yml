@@ -14,8 +14,6 @@ build:
       - public
   only:
     - main
-  tags:
-    - your-runner-tag
 
 deploy:
   stage: deploy
@@ -32,5 +30,3 @@ deploy:
     url: http://sqkj.ru
   only:
     - main
-  tags:
-    - your-runner-tag
