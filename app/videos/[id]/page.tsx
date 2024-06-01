@@ -80,14 +80,13 @@ export default async function Page({
    tvData.tv.episodes.map(async (episode: any) => {
      const { m3u8 } = await getm3u8({ id: episode.movieid });
      const antiTheftM3u8 = generateAntiTheftUrl(m3u8, tokenKey);
-     const VIDEO_HOST = process.env.VIDEO_HOST;
+     const VIDEO_HOST = process.env.NEXT_PUBLIC_VIDEO_HOST;
      return {
        episode: episode.episode,
        m3u8: `${VIDEO_HOST}${antiTheftM3u8}`,
      };
    })
  );
-
   // 将第一集视频的详细信息赋值给 video 对象
   video = firstEpisodeVideo;
   return (
